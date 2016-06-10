@@ -3,6 +3,7 @@ import java.util.PriorityQueue;
 public class PointDataStructure implements PDT {
 
 	int heapSize;
+    int median ;
 
     //stores all the numbers less than the current median in a maxheap, i.e median is the maximum, at the root
     private PriorityQueue<Point> maxheap;
@@ -52,6 +53,7 @@ public class PointDataStructure implements PDT {
 	@Override
 	public Point[] getPointsInRange(int XLeft, int XRight) {
 		// TODO Auto-generated method stub
+        Point[] pointsInRange = new Point[XRight - XLeft + 1];
 		return null;
 	}
 
@@ -120,6 +122,14 @@ public class PointDataStructure implements PDT {
         else if (maxheap.size() > minheap.size()){ return (double)maxheap.peek().getY();}
         else{ return (double)minheap.peek().getY();}
 
+    }
+
+    @Override
+    public String toString() {
+        return "PointDataStructure{" +
+                "minheap=" + minheap +
+                ", maxheap=" + maxheap +
+                '}';
     }
 }
 

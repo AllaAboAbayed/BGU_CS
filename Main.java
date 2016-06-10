@@ -19,7 +19,10 @@ public class Main {
 				new Point(4, 4),
 		};
 
-		PointDataStructure pointDataStructure = new PointDataStructure(points, points[2]);
+		PointDataStructure pointDataStructure = new PointDataStructure(points, points[3]);
+        System.out.println(pointDataStructure.toString());
+        System.out.println("Median: " + pointDataStructure.median());
+
 
 
 		//testA();
