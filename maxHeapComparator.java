@@ -10,10 +10,10 @@ class maxHeapComparator implements Comparator<Point> {
 
         int result;
         if (i.getY() > j.getY())
-            result = -1;
+            result = j.getY() - i.getY();
         else  if (i.getY() == j.getY()){
             if (i.getX() > j.getX())
-                result = -1;
+                result = j.getX() - i.getX();
             else if (i.getX()<j.getX())
                 result = 1;
             else result = 0;

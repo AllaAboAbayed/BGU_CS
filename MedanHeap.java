@@ -1,12 +1,7 @@
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.Scanner;
 
-/**
- *
- * @author BatmanLost
- */
 
 class MedianHeap {
 
@@ -19,50 +14,6 @@ class MedianHeap {
     private static final maxHeapComparator myMaxHeapComparator = new maxHeapComparator();
     private static final minHeapComparator myMinHeapComparator = new minHeapComparator();
 
-    /**
-     * Comparator for the minHeap, smallest number has the highest priority, natural ordering
-     */
-    private static class minHeapComparator implements Comparator<Point>{
-        @Override
-        public int compare(Point i, Point j) {
-            int result;
-            if (i.getY() > j.getY())
-                result =1;
-            else  if (i.getY() == j.getY()){
-                if (i.getX() > j.getX())
-                    result =1;
-                else if (i.getX()<j.getX())
-                    result =-1;
-                else result=0;
-            }
-            else result=-1;
-            return result;
-        }
-    }
-
-    /**
-     * Comparator for the maxHeap, largest number has the highest priority
-     */
-    private static  class maxHeapComparator implements Comparator<Point>{
-        // opposite to minHeapComparator, invert the return values
-        @Override
-        public int compare(Point i, Point j) {
-
-                int result;
-                if (i.getY() > j.getY())
-                    result = -1;
-                else  if (i.getY() == j.getY()){
-                    if (i.getX() > j.getX())
-                        result = -1;
-                    else if (i.getX()<j.getX())
-                        result = 1;
-                    else result = 0;
-                }
-                else result = 1;
-                return result;
-
-        }
-    }
 
     /**
      * Constructor for a MedianHeap, to dynamically generate median.
@@ -209,13 +160,4 @@ class MedianHeap {
         }
     }
 
-    public static void main(String[] args){
-        System.out.println("You got to stop the program MANUALLY!!");
-        while(true){
-            MedianHeap testObj = new MedianHeap();
-           testObj.test(5);
-
-            System.out.println(testObj);
-        }
-    }
 }

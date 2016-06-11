@@ -14,15 +14,40 @@ public class Main {
 		Point[] points = {
 				new Point(0, 0),
 				new Point(3, 1),
-				new Point(2, 3),
 				new Point(1, 2),
+				new Point(2, 3),
 				new Point(4, 4),
 		};
 
-		PointDataStructure pointDataStructure = new PointDataStructure(points, points[3]);
+        Point[] points2 = {
+                new Point(8, 2),
+                new Point(1, 4),
+                new Point(12, 5),
+                new Point(2, 7),
+                new Point(7, 7),
+                new Point(13, 7),
+                new Point(9, 9),
+                new Point(35, 12),
+                new Point(3, 15),
+                new Point(15, 15),
+        };
+
+
+		PointDataStructure pointDataStructure = new PointDataStructure(points, points[2]);
         System.out.println(pointDataStructure.toString());
         System.out.println("Median: " + pointDataStructure.median());
+        System.out.println("Median Point: " + pointDataStructure.medianPoint());
 
+        PointDataStructure pointDataStructure2 = new PointDataStructure(points2, points2[5]);
+        System.out.println(pointDataStructure2.toString());
+        System.out.println("Median: " + pointDataStructure2.median());
+        System.out.println("Median Point: " + pointDataStructure2.medianPoint());
+
+        Point[] arr = pointDataStructure.pointsArray();
+        for (int i = 0; i < arr.length; i++) {
+            System.out.print(arr[i].toString());
+        }
+        System.out.println();
 
 
 		//testA();
