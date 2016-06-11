@@ -1,3 +1,4 @@
+import java.util.Iterator;
 import java.util.PriorityQueue;
 
 public class PointDataStructure implements PDT {
@@ -19,7 +20,7 @@ public class PointDataStructure implements PDT {
         maxheap = new PriorityQueue<Point>(11,myMaxHeapComparator);
         minheap = new PriorityQueue<Point>(11,myMinHeapComparator);
 
-        minheap.add(initialYMedianPoint);
+       // minheap.add(initialYMedianPoint);
         for (int i = 0; i < points.length; i++) {
             addPoint(points[i]);
         }
@@ -38,9 +39,9 @@ public class PointDataStructure implements PDT {
         else{
             //add to the appropriate heap
             // if n is less than or equal to current median, add to maxheap
-            if(Double.compare(n.getY(), median()) < 0){maxheap.add(n);}
+            if(Integer.compare(n.getY(), median()) < 0){maxheap.add(n);}
             // if n is greater than current median, add to min heap
-            else if (Double.compare(n.getY(), median()) > 0){minheap.add(n);}
+            else if (Integer.compare(n.getY(), median()) > 0){minheap.add(n);}
         }
         heapSize++;
 
@@ -112,15 +113,40 @@ public class PointDataStructure implements PDT {
      * returns the median of the numbers encountered so far
      * @return
      */
-    public double median(){
+    public int median(){
         //if total size(no. of elements entered) is even, then median iss the average of the 2 middle elements
         //i.e, average of the root's of the heaps.
+
         if( maxheap.size() == minheap.size()) {
-            return ((double)maxheap.peek().getY() + (double)minheap.peek().getY())/2 ;
+            if (compare(maxheap.peek(), minheap.peek()) == 1)
+                return maxheap.peek().getY();
+            else return minheap.peek().getY();
+
+
+           // if (maxheap.peek().getY() >= minheap.peek().getY() && maxheap.peek().getX() >= minheap.peek().getX())
+            //return ((double)maxheap.peek().getY() + (double)minheap.peek().getY())/2 ;
         }
         //else median is middle element, i.e, root of the heap with one element more
-        else if (maxheap.size() > minheap.size()){ return (double)maxheap.peek().getY();}
-        else{ return (double)minheap.peek().getY();}
+        else if (maxheap.size() > minheap.size()){ return maxheap.peek().getY();}
+        else{ return minheap.peek().getY();}
+
+    }
+    public Point medianPoint(){
+        //if total size(no. of elements entered) is even, then median iss the average of the 2 middle elements
+        //i.e, average of the root's of the heaps.
+
+        if( maxheap.size() == minheap.size()) {
+            if (compare(maxheap.peek(), minheap.peek()) == 1)
+                return maxheap.peek();
+            else return minheap.peek();
+
+
+            // if (maxheap.peek().getY() >= minheap.peek().getY() && maxheap.peek().getX() >= minheap.peek().getX())
+            //return ((double)maxheap.peek().getY() + (double)minheap.peek().getY())/2 ;
+        }
+        //else median is middle element, i.e, root of the heap with one element more
+        else if (maxheap.size() > minheap.size()){ return maxheap.peek();}
+        else{ return minheap.peek();}
 
     }
 
@@ -130,6 +156,35 @@ public class PointDataStructure implements PDT {
                 "minheap=" + minheap +
                 ", maxheap=" + maxheap +
                 '}';
+    }
+
+    private int compare(Point i, Point j){
+
+        int result;
+        if (i.getY() > j.getY())
+            result = 1;
+        else  if (i.getY() == j.getY()){
+            if (i.getX() > j.getX())
+                result = 1;
+            else if (i.getX()<j.getX())
+                result =-1;
+            else result=0;
+        }
+        else result=-1;
+        return result;
+    }
+
+    public Point[] pointsArray(){
+        Point[] points = new Point[maxheap.size()+minheap.size()];
+        Iterator<Point> maxIter =    maxheap.iterator();
+        Iterator<Point> minIter = minheap.iterator();
+        for (int i = 0; i < maxheap.size(); i++) {
+            points[i] = maxIter.next();
+        }
+        for (int i = maxheap.size(); i < minheap.size()+maxheap.size(); i++) {
+            points[i] = minIter.next();
+        }
+        return points;
     }
 }
 
