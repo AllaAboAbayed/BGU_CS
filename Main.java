@@ -38,12 +38,14 @@ public class Main {
         System.out.println("Median: " + pointDataStructure.median());
         System.out.println("Median Point: " + pointDataStructure.medianPoint());
 
+
         PointDataStructure pointDataStructure2 = new PointDataStructure(points2, points2[5]);
         System.out.println(pointDataStructure2.toString());
         System.out.println("Median: " + pointDataStructure2.median());
         System.out.println("Median Point: " + pointDataStructure2.medianPoint());
 
-        Point[] arr = pointDataStructure.pointsArray();
+        System.out.println("X sorted array");
+        Point[] arr = pointDataStructure.countingSort(points2, 36);
         for (int i = 0; i < arr.length; i++) {
             System.out.print(arr[i].toString());
         }
