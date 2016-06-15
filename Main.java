@@ -50,6 +50,11 @@ public class Main {
             System.out.print(arr[i].toString());
         }
         System.out.println();
+        System.out.println("Points in Range:");
+        Point[] arr2 = pointDataStructure2.getPointsInRange(7,13);
+        for (int i = 0; i < arr2.length && arr2[i] !=null ; i++) {
+            System.out.print(arr2[i].toString());
+        }
 
 
 		//testA();
