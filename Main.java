@@ -38,12 +38,18 @@ public class Main {
         System.out.println("Median: " + pointDataStructure.median());
         System.out.println("Median Point: " + pointDataStructure.medianPoint());
 */
-
         PointDataStructure pointDataStructure2 = new PointDataStructure(points2, points2[5]);
         System.out.println(pointDataStructure2.toString());
         System.out.println("Median: " + pointDataStructure2.median());
         System.out.println("Median Point: " + pointDataStructure2.medianPoint());
-        System.out.println("Removing Median");
+
+        System.out.println("k Middle Points:" );
+        Point[] kPoints = pointDataStructure2.getMedianPoints(3);
+        for (int i = 0; i < kPoints.length; i++) {
+            System.out.println(kPoints[i].toString());
+        }
+
+        /*System.out.println("Removing Median");
 
         pointDataStructure2.removeMedianPoint();
         System.out.println("Median Point: " + pointDataStructure2.medianPoint());
@@ -60,20 +66,20 @@ public class Main {
         pointDataStructure2.removeMedianPoint();
         System.out.println("Median Point: " + pointDataStructure2.medianPoint());
 
-
-        System.out.println("-------------------------------------");
+*/
+      /*  System.out.println("-------------------------------------");
         System.out.println("X sorted array");
         Point[] arr = pointDataStructure2.countingSort(points2, 36);
         for (int i = 0; i < arr.length; i++) {
             System.out.print(arr[i].toString());
-        }
+        }for (int i = 0; i < arr2.length && arr2[i] !=null ; i++) {
+        System.out.print(arr2[i].toString());
+    }
         System.out.println();
         System.out.println("Points in Range:");
         Point[] arr2 = pointDataStructure2.getPointsInRange(7,13);
-        for (int i = 0; i < arr2.length && arr2[i] !=null ; i++) {
-            System.out.print(arr2[i].toString());
-        }
 
+*/
 
 		//testA();
 		//testB();

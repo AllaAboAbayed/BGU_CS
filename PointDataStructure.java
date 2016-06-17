@@ -29,7 +29,6 @@ public class PointDataStructure implements PDT {
         }
         xSortedHeap = countingSort(points, 35);
 
-
 	}
 
 
@@ -129,11 +128,64 @@ public class PointDataStructure implements PDT {
 
     }
 
-	@Override
-	public Point[] getMedianPoints(int k) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public Point[] getMedianPoints(int k) {
+
+        Point [] medianPoints = new Point[k];
+        Iterator<Point> maxIter =    maxheap.iterator();
+        Iterator<Point> minIter = minheap.iterator();
+        int start = (int) (heapSize/2 - Math.ceil((double)(k-1)/2));
+        int end = (int) (heapSize/2 + Math.floor((k-1)/2));
+        int flag = 0;
+        int i = 0;
+
+        while (start <=end){
+
+            if (flag == 1){
+                medianPoints[i] = minIter.next();
+                end--;
+                i++;
+                flag = -1;
+            }
+            else if (flag == -1){
+                medianPoints[i] = maxIter.next();
+                start++;
+                i++;
+                flag = 1;
+            }
+            else{
+
+                if( maxheap.size() == minheap.size() && flag == 0) {
+                    if (compare(maxheap.peek(), minheap.peek()) == 1){
+                        medianPoints[i] = maxIter.next();
+                        start++;
+                        i++;
+                        flag = 1;
+                    }
+                    else {
+                        medianPoints[i] = minIter.next();
+                        end--;
+                        i++;
+                        flag = -1;
+                    }
+
+                }
+                else if (maxheap.size() > minheap.size() && flag == 0){
+                    medianPoints[i] = maxIter.next();
+                    start++;
+                    i++;
+                    flag = 1;
+
+                }
+                else{  medianPoints[i] = minIter.next();
+                    end--;
+                    i++;
+                    flag = -1;
+                }
+            }
+        }
+        return medianPoints;
+    }
 
 	@Override
 	public Point[] getAllPoints() {
@@ -239,7 +291,6 @@ public class PointDataStructure implements PDT {
         }
         return points;
     }
-
 
     public Point[] countingSort(Point[] a, int k) {
         int c[] = new int[k+1];
