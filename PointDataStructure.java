@@ -5,6 +5,8 @@ public class PointDataStructure implements PDT {
 
 	int heapSize;
     Point[] xSortedHeap;
+    int max=0;
+    int numOfPointsInRange = 0;
 
     //stores all the numbers less than the current median in a maxheap, i.e median is the maximum, at the root
     private PriorityQueue<Point> maxheap;
@@ -20,11 +22,12 @@ public class PointDataStructure implements PDT {
         maxheap = new PriorityQueue<Point>(11,myMaxHeapComparator);
         minheap = new PriorityQueue<Point>(11,myMinHeapComparator);
         xSortedHeap = new Point[points.length];
-        xSortedHeap = countingSort(points, 35);
+
        // minheap.add(initialYMedianPoint);
         for (int i = 0; i < points.length; i++) {
             addPoint(points[i]);
         }
+        xSortedHeap = countingSort(points, 35);
 
 
 	}
@@ -59,8 +62,10 @@ public class PointDataStructure implements PDT {
         int xStart = findXleft(XLeft, xSortedHeap);
 
         for (int i = 0; i < xSortedHeap.length && xSortedHeap[i+xStart].getX()<= XRight; i++) {
-            if (xSortedHeap[xStart + i ].getX() <=XRight)
+            if (xSortedHeap[xStart + i ].getX() <=XRight){
                 pointsInRange[i] = xSortedHeap[xStart + i];
+                numOfPointsInRange++;
+            }
 
         }
         return pointsInRange;
@@ -86,21 +91,43 @@ public class PointDataStructure implements PDT {
 
     @Override
 	public int numOfPointsInRange(int XLeft, int XRight) {
-		// TODO Auto-generated method stub
-		return 0;
+
+		return numOfPointsInRange;
 	}
 
 	@Override
 	public double averageHeightInRange(int XLeft, int XRight) {
-		// TODO Auto-generated method stub
-		return 0;
+        int xStart = findXleft(XLeft, xSortedHeap);
+        int avg = 0;
+        int tot=0;
+        for (int i = 0; i < xSortedHeap.length && xSortedHeap[i+xStart].getX()<= XRight; i++) {
+            if (xSortedHeap[xStart + i ].getX() <=XRight){
+                avg += xSortedHeap[xStart + i].getY();
+                tot++;
+            }
+
+        }
+        return avg/tot ;
 	}
 
 	@Override
 	public void removeMedianPoint() {
-		// TODO Auto-generated method stub
-		
-	}
+        if( maxheap.size() == minheap.size()) {
+            if (compare(maxheap.peek(), minheap.peek()) == 1)
+                 maxheap.remove();
+            else  minheap.remove();
+
+
+            // if (maxheap.peek().getY() >= minheap.peek().getY() && maxheap.peek().getX() >= minheap.peek().getX())
+            //return ((double)maxheap.peek().getY() + (double)minheap.peek().getY())/2 ;
+        }
+        //else median is middle element, i.e, root of the heap with one element more
+        else if (maxheap.size() > minheap.size()){  maxheap.remove();}
+        else{  minheap.remove();}
+        heapSize--;
+        fixChaos();
+
+    }
 
 	@Override
 	public Point[] getMedianPoints(int k) {

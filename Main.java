@@ -33,19 +33,37 @@ public class Main {
         };
 
 
-		PointDataStructure pointDataStructure = new PointDataStructure(points, points[2]);
+		/*PointDataStructure pointDataStructure = new PointDataStructure(points, points[2]);
         System.out.println(pointDataStructure.toString());
         System.out.println("Median: " + pointDataStructure.median());
         System.out.println("Median Point: " + pointDataStructure.medianPoint());
-
+*/
 
         PointDataStructure pointDataStructure2 = new PointDataStructure(points2, points2[5]);
         System.out.println(pointDataStructure2.toString());
         System.out.println("Median: " + pointDataStructure2.median());
         System.out.println("Median Point: " + pointDataStructure2.medianPoint());
+        System.out.println("Removing Median");
 
+        pointDataStructure2.removeMedianPoint();
+        System.out.println("Median Point: " + pointDataStructure2.medianPoint());
+        pointDataStructure2.removeMedianPoint();
+        System.out.println("Median Point: " + pointDataStructure2.medianPoint());
+        System.out.println(pointDataStructure2.toString());
+        System.out.println("Removing Median");
+        for (int i = 0; i < pointDataStructure2.heapSize -1; i++) {
+            System.out.println("Removing Median");
+            pointDataStructure2.removeMedianPoint();
+            System.out.println(pointDataStructure2.medianPoint());
+            System.out.println(pointDataStructure2.toString());
+        }
+        pointDataStructure2.removeMedianPoint();
+        System.out.println("Median Point: " + pointDataStructure2.medianPoint());
+
+
+        System.out.println("-------------------------------------");
         System.out.println("X sorted array");
-        Point[] arr = pointDataStructure.countingSort(points2, 36);
+        Point[] arr = pointDataStructure2.countingSort(points2, 36);
         for (int i = 0; i < arr.length; i++) {
             System.out.print(arr[i].toString());
         }
