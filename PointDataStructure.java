@@ -22,12 +22,15 @@ public class PointDataStructure implements PDT {
         maxheap = new PriorityQueue<Point>(11,myMaxHeapComparator);
         minheap = new PriorityQueue<Point>(11,myMinHeapComparator);
         xSortedHeap = new Point[points.length];
+        int maxYvalue = 0;
 
        // minheap.add(initialYMedianPoint);
         for (int i = 0; i < points.length; i++) {
+            if (points[i].getY()>maxYvalue)
+                maxYvalue = points[i].getY();
             addPoint(points[i]);
         }
-        xSortedHeap = countingSort(points, 35);
+        xSortedHeap = countingSort(points, maxYvalue);
 
 	}
 
@@ -57,8 +60,15 @@ public class PointDataStructure implements PDT {
 
 	@Override
 	public Point[] getPointsInRange(int XLeft, int XRight) {
-        Point[] pointsInRange = new Point[XRight - XLeft + 2];
-        int xStart = findXleft(XLeft, xSortedHeap);
+        int xStart = 0;
+        Point[] pointsInRange = new Point[XRight - XLeft + 1];
+        if (XLeft <= xSortedHeap[0].getX()){
+            xStart = xSortedHeap[0].getX();
+        }
+        else
+            xStart = findXleft(XLeft, xSortedHeap);
+        if (XRight > xSortedHeap[xSortedHeap.length-1].getX())
+            XRight = xSortedHeap[xSortedHeap.length-1].getX();
 
         for (int i = 0; i < xSortedHeap.length && xSortedHeap[i+xStart].getX()<= XRight; i++) {
             if (xSortedHeap[xStart + i ].getX() <=XRight){
@@ -90,7 +100,24 @@ public class PointDataStructure implements PDT {
 
     @Override
 	public int numOfPointsInRange(int XLeft, int XRight) {
+        int xStart, xEnd;
+        int counter=0;
+        if (numOfPointsInRange == 0){
+            if (XLeft <= xSortedHeap[0].getX()){
+                xStart = xSortedHeap[0].getX();
+            }
+            else
+                xStart = findXleft(XLeft, xSortedHeap);
+            if (XRight > xSortedHeap[xSortedHeap.length-1].getX())
+                xEnd = xSortedHeap[xSortedHeap.length-1].getX();
+            else
+                xEnd = findXleft(XRight,xSortedHeap);
 
+            for (int i = 0; i <= xEnd - xStart ; i++) {
+                counter++;
+            }
+            return counter;
+        }
 		return numOfPointsInRange;
 	}
 
@@ -106,7 +133,7 @@ public class PointDataStructure implements PDT {
             }
 
         }
-        return avg/tot ;
+        return avg/tot;
 	}
 
 	@Override
@@ -302,14 +329,14 @@ public class PointDataStructure implements PDT {
 
     public Point[] countingSort(Point[] a, int k) {
         int c[] = new int[k+1];
-        for (int i = 1; i <= k; i++) {
+        for (int i = 0; i < k; i++) {
             c[i] = 0;
         }
 
         for (int i = 0; i < a.length; i++)
             c[a[i].getX()]++;
 
-        for (int i = 1; i < k; i++)
+        for (int i = 1; i <= k; i++)
             c[i] += c[i-1];
 
         Point b[] = new Point[a.length];

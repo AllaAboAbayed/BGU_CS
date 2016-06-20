@@ -11,7 +11,7 @@ public class Main {
 
 	public static void main(String[] args) 
 	{
-		Point[] points = {
+		/*Point[] points = {
 				new Point(0, 0),
 				new Point(3, 1),
 				new Point(1, 2),
@@ -30,7 +30,7 @@ public class Main {
                 new Point(35, 12),
                 new Point(3, 15),
                 new Point(15, 15),
-        };
+        };*/
 
 
 		/*PointDataStructure pointDataStructure = new PointDataStructure(points, points[2]);
@@ -38,7 +38,7 @@ public class Main {
         System.out.println("Median: " + pointDataStructure.median());
         System.out.println("Median Point: " + pointDataStructure.medianPoint());
 */
-        PointDataStructure pointDataStructure2 = new PointDataStructure(points2, points2[5]);
+      /*  PointDataStructure pointDataStructure2 = new PointDataStructure(points2, points2[5]);
         System.out.println(pointDataStructure2.toString());
         System.out.println("Median: " + pointDataStructure2.median());
         System.out.println("Median Point: " + pointDataStructure2.medianPoint());
@@ -47,7 +47,7 @@ public class Main {
         Point[] kPoints = pointDataStructure2.getMedianPoints(3);
         for (int i = 0; i < kPoints.length; i++) {
             System.out.println(kPoints[i].toString());
-        }
+        }*/
 
         /*System.out.println("Removing Median");
 
@@ -81,7 +81,7 @@ public class Main {
 
 */
 
-		//testA();
+		testA();
 		//testB();
 		//testC();
 	}
