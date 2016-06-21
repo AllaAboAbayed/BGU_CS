@@ -5,7 +5,6 @@ public class PointDataStructure implements PDT {
 
 	int heapSize;
     Point[] xSortedHeap;
-    int max=0;
     int numOfPointsInRange = 0;
 
     //stores all the numbers less than the current median in a maxheap, i.e median is the maximum, at the root
@@ -24,10 +23,10 @@ public class PointDataStructure implements PDT {
         xSortedHeap = new Point[points.length];
         int maxYvalue = 0;
 
-       // minheap.add(initialYMedianPoint);
+        //minheap.add(initialYMedianPoint);
         for (int i = 0; i < points.length; i++) {
-            if (points[i].getY()>maxYvalue)
-                maxYvalue = points[i].getY();
+            if (points[i].getX()>maxYvalue)
+                maxYvalue = points[i].getX();
             addPoint(points[i]);
         }
         xSortedHeap = countingSort(points, maxYvalue);
@@ -47,9 +46,23 @@ public class PointDataStructure implements PDT {
         else{
             //add to the appropriate heap
             // if n is less than or equal to current median, add to maxheap
-            if(Integer.compare(n.getY(), median()) < 0){maxheap.add(n);}
+            if(Integer.compare(n.getY(), median()) < 0){
+                maxheap.add(n);}
             // if n is greater than current median, add to min heap
-            else if (Integer.compare(n.getY(), median()) > 0){minheap.add(n);}
+            else if (Integer.compare(n.getY(), median()) > 0){
+                minheap.add(n);}
+
+            else if (Integer.compare(n.getY(), median()) == 0){
+                if(compare(n, medianPoint()) < 0 ){
+                    System.out.println("n< med");
+                    maxheap.add(n);
+                }
+                else if (compare(n, medianPoint()) > 0){
+                    System.out.println("n>med");
+                     minheap.add(n);
+                }
+
+            }
         }
         heapSize++;
 
@@ -66,21 +79,31 @@ public class PointDataStructure implements PDT {
             xStart = xSortedHeap[0].getX();
         }
         else
-            xStart = findXleft(XLeft, xSortedHeap);
+            xStart = findX(XLeft, xSortedHeap);
         if (XRight > xSortedHeap[xSortedHeap.length-1].getX())
             XRight = xSortedHeap[xSortedHeap.length-1].getX();
 
-        for (int i = 0; i < xSortedHeap.length && xSortedHeap[i+xStart].getX()<= XRight; i++) {
+        for (int i = 0; i + xStart < xSortedHeap.length ; i++) {
             if (xSortedHeap[xStart + i ].getX() <=XRight){
                 pointsInRange[i] = xSortedHeap[xStart + i];
                 numOfPointsInRange++;
             }
 
         }
-        return pointsInRange;
+        return  copyArry(pointsInRange, numOfPointsInRange);
+
 	}
 
-    private int findXleft(int xLeft, Point[] xSortedHeap) {
+    private Point[] copyArry(Point[] pointsInRange, int numOfPointsInRange) {
+
+        Point[] copiedArray = new Point[numOfPointsInRange];
+        for (int i = 0; i < numOfPointsInRange; i++) {
+            copiedArray[i] = pointsInRange[i];
+        }
+        return copiedArray;
+    }
+
+    private int findX(int xLeft, Point[] xSortedHeap) {
         int index = 0;
         int low = 0;
         int high = xSortedHeap.length - 1;
@@ -101,30 +124,42 @@ public class PointDataStructure implements PDT {
     @Override
 	public int numOfPointsInRange(int XLeft, int XRight) {
         int xStart, xEnd;
-        int counter=0;
+
+        if (XLeft <= xSortedHeap[0].getX()){
+            xStart = xSortedHeap[0].getX();
+        }
+        else
+            xStart = findX(XLeft, xSortedHeap);
+        if (XRight > xSortedHeap[xSortedHeap.length-1].getX())
+            xEnd = xSortedHeap[xSortedHeap.length-1].getX();
+        else
+            xEnd = findX(XRight,xSortedHeap);
+        return xEnd - xStart +1 ;
+
+        /*int counter=0;
         if (numOfPointsInRange == 0){
             if (XLeft <= xSortedHeap[0].getX()){
                 xStart = xSortedHeap[0].getX();
             }
             else
-                xStart = findXleft(XLeft, xSortedHeap);
+                xStart = findX(XLeft, xSortedHeap);
             if (XRight > xSortedHeap[xSortedHeap.length-1].getX())
                 xEnd = xSortedHeap[xSortedHeap.length-1].getX();
             else
-                xEnd = findXleft(XRight,xSortedHeap);
+                xEnd = findX(XRight,xSortedHeap);
 
             for (int i = 0; i <= xEnd - xStart ; i++) {
                 counter++;
             }
             return counter;
-        }
-		return numOfPointsInRange;
+        }*/
+		//return getPointsInRange(XLeft,XRight).length;
 	}
 
 	@Override
 	public double averageHeightInRange(int XLeft, int XRight) {
-        int xStart = findXleft(XLeft, xSortedHeap);
-        int avg = 0;
+        int xStart = findX(XLeft, xSortedHeap);
+        double avg = 0;
         int tot=0;
         for (int i = 0; i < xSortedHeap.length && xSortedHeap[i+xStart].getX()<= XRight; i++) {
             if (xSortedHeap[xStart + i ].getX() <=XRight){
@@ -133,7 +168,7 @@ public class PointDataStructure implements PDT {
             }
 
         }
-        return avg/tot;
+        return ((double) (avg/tot));
 	}
 
 	@Override

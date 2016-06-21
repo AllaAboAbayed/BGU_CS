@@ -81,8 +81,8 @@ public class Main {
 
 */
 
-		testA();
-		//testB();
+		// testA();
+		testB();
 		//testC();
 	}
 
@@ -139,16 +139,16 @@ public class Main {
 		testExpectedPoints(testName, expectedPoints3, pdt.getMedianPoints(3));
 		
 		Point[] points2 = {
-				new Point(1, 4), 
-				new Point(2, 7),
-				new Point(3, 15),
-				new Point(7, 7),
 				new Point(8, 2),
-				new Point(9, 9),
+				new Point(1, 4),
 				new Point(12, 5),
+				new Point(2, 7),
+				new Point(7, 7),
 				new Point(13, 7),
-				new Point(15, 15),
+				new Point(9, 9),
 				new Point(35, 12),
+				new Point(3, 15),
+				new Point(15, 15)
 				};
 		
 		pdt=new PointDataStructure(points2,points2[7]);
@@ -196,6 +196,7 @@ public class Main {
 				new Point(13, 7),
 				new Point(9, 9),
 				};
+		System.out.println(pdt.toString());
 		testExpectedPoints(testName, expectedPoints6, pdt.getMedianPoints(3));
 		testName = "A7.4";
 		Point[] expectedPoints7 = { 
@@ -291,7 +292,7 @@ public class Main {
 		};
 		testExpectedPoints(testName, expectedPoints2, pdt.getMedianPoints(k));
 		
-		testName = "B5";
+	/*	testName = "B5";
 		Point[] expectedPoints3=
 		{
 			new Point(NUM-mid-1,mid),
@@ -302,8 +303,10 @@ public class Main {
 			new Point(NUM-(mid-3)-1,mid-3),
 			new Point(NUM-(mid+3)-1,mid+3),
 		};
+		//System.out.println();
 		testExpectedPoints(testName, expectedPoints3, pdt.getMedianPoints(k+1));
-		
+		//System.out.println(pdt.toString());
+		System.out.println();
 		pdt.addPoint(new Point(NUM,NUM));
 		
 		
@@ -374,7 +377,7 @@ public class Main {
 				new Point(NUM-(mid+4)-1,mid+4),
 		};
 		testExpectedPoints(testName, expectedPoints7, pdt.getMedianPoints(k+1));
-	}
+*/	}
 
 	
 
